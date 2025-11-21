@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sponsor — Daftar</title>
+    <style>
+        :root {
+            --bg: #f7f8fb;
+            --card: #ffffff;
+            --muted: #6b7280;
+            --accent: #2563eb;
+            --danger: #ef4444;
+            --border: #e6e9ef;
+            --radius: 8px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 36px auto;
+            padding: 18px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--muted);
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #e0e7ff;
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px;
+        }
+
+        h1 {
+            margin: 0 0 12px 0;
+            font-size: 18px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px
+        }
+
+        thead th {
+            text-align: left;
+            padding: 12px 10px;
+            color: var(--muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border)
+        }
+
+        tbody td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--bg);
+            vertical-align: middle
+        }
+
+        .col-id {
+            width: 48px;
+            color: var(--muted);
+        }
+
+        .col-actions {
+            width: 170px;
+            text-align: right
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-edit {
+            color: var(--accent);
+        }
+
+        .btn-delete {
+            color: var(--danger);
+            margin-left: 8px
+        }
+
+        .btn-add {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="nav-tabs">
+            <a href="index.php" class="nav-link">Pembalap</a>
+            <a href="index.php?menu=sponsor" class="nav-link active">Sponsor</a>
+        </nav>
+
+        <div class="card">
+            <h1>Daftar Sponsor</h1>
+            <div style="overflow:auto;">
+                <table role="table">
+                    <thead>
+                        <tr>
+                            <th class="col-id">No</th>
+                            <th>Nama Sponsor</th>
+                            <th>Negara Asal</th>
+                            <th>Total Pendanaan (USD)</th>
+                            <th class="col-actions">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        DATA_TABEL
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center">
+                <div style="color:var(--muted);font-size:13px">Total:</div>
+                <div>
+                    <a href="index.php?menu=sponsor&screen=add" class="btn btn-add">+ Tambah Sponsor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('click', function (e) {
+            var d = e.target.closest && e.target.closest('.btn-delete');
+            if (!d) return;
+            var id = d.getAttribute('data-id');
+            if (confirm('Hapus data #' + id + '?')) {
+                var form = document.createElement('form');
+                form.method = 'POST'; form.action = 'index.php?menu=sponsor';
+                var act = document.createElement('input'); act.type = 'hidden'; act.name = 'action'; act.value = 'delete'; form.appendChild(act);
+                var i = document.createElement('input'); i.type = 'hidden'; i.name = 'id'; i.value = id; form.appendChild(i);
+                document.body.appendChild(form); form.submit();
+            }
+        });
+    </script>
+</body>
+
+</html>
